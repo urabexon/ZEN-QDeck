@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ZEN-QDeck</title>
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@500;700;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --app-height: 100dvh;
+      --primary-color: #1e293b;
+    }
+    
+    body {
+      font-family: 'Zen Maru Gothic', sans-serif;
+      background-color: #f0f4f8;
+      height: var(--app-height);
+      width: 100vw;
+      overflow: hidden;
+      position: fixed;
+      color: var(--primary-color);
+    }
+    
+    #root {
+      height: 100%;
+      width: 100%;
+    }
+    
+    /* 吹き出しのアニメーション */
+    .bubble-enter {
+      animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+      opacity: 0;
+      transform: scale(0.9) translateY(10px);
+      transform-origin: bottom center;
+    }
+    
+    @keyframes popIn {
+      to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+      }
+    }
+    
+    /* 背景パターン */
+    .bg-grid {
+      position: absolute;
+      inset: 0;
+      background-image: linear-gradient(rgba(203, 213, 225, 0.3) 1px, transparent 1px),
+                        linear-gradient(90deg, rgba(203, 213, 225, 0.3) 1px, transparent 1px);
+      background-size: 40px 40px;
+      z-index: -1;
+      mask-image: linear-gradient(to bottom, black 40%, transparent 100%);
+    }
+    
+    /* デフォルトキャラクター */
+    .mascot-wrapper {
+      font-size: 20vh; /* 少し大きくして存在感を出す */
+      line-height: 1;
+      position: relative;
+      animation: breathe 3s ease-in-out infinite;
+      filter: drop-shadow(0 10px 15px rgba(0,0,0,0.1));
+    }
+    
+    @keyframes breathe {
+      0%, 100% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.05);
+      }
+    }
+    
+    /* 吹き出し本体 */
+    .speech-bubble {
+      position: relative;
+      background: #ffffff;
+      border-radius: 40px;
+      padding: 3rem 2rem;
+      text-align: center;
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
+                  0 10px 10px -5px rgba(0, 0, 0, 0.04),
+                  inset 0 -4px 0 rgba(0,0,0,0.05);
+      border: 4px solid var(--primary-color);
+      max-width: 90%;
+      width: 700px;
+      z-index: 20; /* 距離感調整: ペンギンの直上に配置 */
+      margin-bottom: 2rem;
+    }
+    
+    /* 吹き出しのしっぽ */
+    .speech-bubble::after,
+    .speech-bubble::before {
+      content: '';
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 0;
+      height: 0;
+      border-style: solid;
+    }
+    
+    .speech-bubble::after {
+      bottom: -24px;
+      border-width: 24px 24px 0;
+      border-color: var(--primary-color) transparent transparent transparent;
+    }
+    
+    .speech-bubble::before {
+      bottom: -18px;
+      border-width: 20px 20px 0;
+      border-color: #ffffff transparent transparent transparent;
+      z-index: 1;
+    }
+    
+    /* ボタン類 */
+    .btn-primary {
+      background: var(--primary-color);
+      color: white;
+      transition: all 0.2s;
+    }
+    
+    .btn-primary:active {
+      transform: scale(0.95);
+    }
+    
+    .btn-nav {
+      background: rgba(255, 255, 255, 0.9);
+      border: 2px solid #e2e8f0;
+      color: var(--primary-color);
+      padding: 0.75rem 1.5rem;
+      border-radius: 9999px;
+      font-weight: 900;
+      transition: all 0.2s;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    
+    .btn-nav:hover {
+      background: #ffffff;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 8px -1px rgba(0, 0, 0, 0.1);
+    }
+    
+    .btn-nav:active {
+      transform: translateY(0);
+    }
+    
+    .btn-nav:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      transform: none;
+    }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+
+  <!-- 読み込み順が超重要 -->
+  <script type="text/babel" src="./data.js"></script>
+  <script type="text/babel" src="./components.js"></script>
+  <script type="text/babel" src="./app.js"></script>
+</body>
+</html>
