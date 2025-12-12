@@ -1,0 +1,18 @@
+# macOS
+.DS_Store
+
+# editor
+.vscode/
+.idea/
+
+# logs
+*.log
+
+# misc
+.env
+
+# vscode
+.vscode/
+
+# cursor
+.cursor/
