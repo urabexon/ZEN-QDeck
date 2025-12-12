@@ -30,7 +30,6 @@
       width: 100%;
     }
     
-    /* 吹き出しのアニメーション */
     .bubble-enter {
       animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
       opacity: 0;
@@ -45,7 +44,6 @@
       }
     }
     
-    /* 背景パターン */
     .bg-grid {
       position: absolute;
       inset: 0;
@@ -56,9 +54,8 @@
       mask-image: linear-gradient(to bottom, black 40%, transparent 100%);
     }
     
-    /* デフォルトキャラクター */
     .mascot-wrapper {
-      font-size: 20vh; /* 少し大きくして存在感を出す */
+      font-size: 20vh;
       line-height: 1;
       position: relative;
       animation: breathe 3s ease-in-out infinite;
@@ -74,7 +71,6 @@
       }
     }
     
-    /* 吹き出し本体 */
     .speech-bubble {
       position: relative;
       background: #ffffff;
@@ -87,11 +83,10 @@
       border: 4px solid var(--primary-color);
       max-width: 90%;
       width: 700px;
-      z-index: 20; /* 距離感調整: ペンギンの直上に配置 */
+      z-index: 20; 
       margin-bottom: 2rem;
     }
     
-    /* 吹き出しのしっぽ */
     .speech-bubble::after,
     .speech-bubble::before {
       content: '';
@@ -116,7 +111,6 @@
       z-index: 1;
     }
     
-    /* ボタン類 */
     .btn-primary {
       background: var(--primary-color);
       color: white;
@@ -160,8 +154,6 @@
 </head>
 <body>
   <div id="root"></div>
-
-  <!-- 読み込み順が超重要 -->
   <script type="text/babel" src="./data.js"></script>
   <script type="text/babel" src="./components.js"></script>
   <script type="text/babel" src="./app.js"></script>
